@@ -1,30 +1,32 @@
-<div class="container">
-  <h2>Dynamic Form Example</h2>
-  <form [formGroup]="dynamicForm" (ngSubmit)="submitForm()">
-    <!-- Static Input -->
-    <label>Name:</label>
-    <input type="text" formControlName="name" />
-    <div *ngIf="dynamicForm.get('name')?.invalid && dynamicForm.get('name')?.touched">
-      Name is required.
-    </div>
+<mat-card class="container">
+  <h2>Payment Form</h2>
+  <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
 
-    <!-- Dynamic Email Inputs -->
-    <div formArrayName="emails">
-      <div *ngFor="let emailCtrl of emails.controls; let i = index">
-        <label>Email {{ i + 1 }}:</label>
-        <input type="email" [formControlName]="i" />
-        <button type="button" (click)="removeEmail(i)">Remove</button>
-        <div *ngIf="emailCtrl.invalid && emailCtrl.touched">
-          <small *ngIf="emailCtrl.errors?.['required']">Email is required.</small>
-          <small *ngIf="emailCtrl.errors?.['email']">Invalid email format.</small>
-        </div>
-      </div>
-    </div>
+    <!-- Name Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" />
+      <mat-error *ngIf="paymentForm.get('name')?.invalid && paymentForm.get('name')?.touched">
+        Name is required.
+      </mat-error>
+    </mat-form-field>
 
-    <!-- Add Email Button -->
-    <button type="button" (click)="addEmail()">Add Email</button>
+    <!-- Payment Method Selection -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Payment Method</mat-label>
+      <mat-select formControlName="paymentMethod" (selectionChange)="onPaymentMethodChange()">
+        <mat-option value="cash">Cash</mat-option>
+        <mat-option value="creditCard">Credit Card</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Credit Card Component (Only Show When Credit Card is Selected) -->
+    <app-credit-card-form
+      [creditCardForm]="creditCardFormGroup"
+      *ngIf="paymentMethod === 'creditCard'">
+    </app-credit-card-form>
 
     <!-- Submit Button -->
-    <button type="submit" [disabled]="dynamicForm.invalid">Submit</button>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
   </form>
-</div>
+</mat-card>
