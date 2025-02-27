@@ -14,7 +14,7 @@
     <!-- Payment Method Selection -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Payment Method</mat-label>
-      <mat-select formControlName="paymentMethod" (selectionChange)="onPaymentMethodChange()">
+      <mat-select formControlName="paymentMethod">
         <mat-option value="cash">Cash</mat-option>
         <mat-option value="creditCard">Credit Card</mat-option>
       </mat-select>
@@ -22,7 +22,8 @@
 
     <!-- Credit Card Component (Only Show When Credit Card is Selected) -->
     <app-credit-card-form
-      [creditCardForm]="creditCardFormGroup"
+      [parentFormGroup]="paymentForm"
+      formGroupName="creditCard"
       *ngIf="paymentMethod === 'creditCard'">
     </app-credit-card-form>
 

@@ -20,6 +20,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MarkFormTouchedDirective} from './mark-form-touched.directive';
 
 @NgModule({
   declarations: [AppComponent, CreditCardFormComponent],
@@ -40,6 +41,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MarkFormTouchedDirective,
   ],
   exports: [
     MatInputModule,
