@@ -1,20 +1,13 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {Form, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-credit-card-form',
   templateUrl: './credit-card-form.component.html',
   styleUrls: ['./credit-card-form.component.css'],
   standalone: false,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CreditCardFormComponent),
-      multi: true
-    }
-  ]
 })
-export class CreditCardFormComponent implements OnInit {
+export class CreditCardFormComponent implements OnInit, OnDestroy {
   @Input() formGroupName: string = 'creditCard';
 
   @Input() parentFormGroup!: FormGroup;
@@ -28,6 +21,10 @@ export class CreditCardFormComponent implements OnInit {
       expiryDate: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]],
       cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
     }));
+  }
+
+  ngOnDestroy(): void {
+    this.parentFormGroup.removeControl(this.formGroupName);
   }
 
   get creditCardFormGroup(): FormGroup {
