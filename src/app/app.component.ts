@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormValues} from './form-values';
+import {Observable} from 'rxjs';
+import {FormValuesService} from './form-values.service';
 
 @Component({
   selector: 'app-root',
@@ -8,22 +10,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   standalone: false,
 })
 export class AppComponent {
-  public paymentForm: FormGroup;
+  public formValues$: Observable<FormValues>;
 
-  constructor(private fb: FormBuilder) {
-    this.paymentForm = this.fb.group({
-      name: ['', Validators.required],
-      paymentMethod: ['cash'],
-    });
+  constructor(private formValuesService: FormValuesService) {
+    this.formValues$ = this.formValuesService.formValues$;
   }
 
-  submitForm() {
-    if (this.paymentForm.valid) {
-      console.log('Form Data:', this.paymentForm.value);
-    }
+  onSubmitForm($event: FormValues) {
+    console.log('Form values:', $event);
   }
 
-  get paymentMethod(): string {
-    return this.paymentForm.get('paymentMethod')?.value;
+  onLoadValues() {
+    this.formValuesService.loadValues();
   }
 }

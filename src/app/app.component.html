@@ -1,33 +1,7 @@
 <mat-card class="container">
   <h2>Payment Form</h2>
-  <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
-
-    <!-- Name Field -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name" />
-      <mat-error *ngIf="paymentForm.get('name')?.invalid && paymentForm.get('name')?.touched">
-        Name is required.
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Payment Method Selection -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Payment Method</mat-label>
-      <mat-select formControlName="paymentMethod">
-        <mat-option value="cash">Cash</mat-option>
-        <mat-option value="creditCard">Credit Card</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- Credit Card Component (Only Show When Credit Card is Selected) -->
-    <app-credit-card-form
-      [parentFormGroup]="paymentForm"
-      formGroupName="creditCard"
-      *ngIf="paymentMethod === 'creditCard'">
-    </app-credit-card-form>
-
-    <!-- Submit Button -->
-    <button mat-raised-button color="primary" type="submit">Submit</button>
-  </form>
+  <app-dynamic-form [formValues]="formValues$ | async" (submitForm)="onSubmitForm($event)"></app-dynamic-form>
+  <button mat-raised-button color="primary" type="button" (click)="onLoadValues()">Load values</button>
 </mat-card>
+
+{{ formValues$ | async | json }}

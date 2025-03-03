@@ -12,9 +12,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 import {CreditCardFormComponent} from './credit-card-form/credit-card-form.component';
 import {MarkFormTouchedDirective} from './mark-form-touched.directive';
+import {DynamicFormComponent} from './dyncamic-form/dynamic-form.component';
+import {AsyncPipe} from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, CreditCardFormComponent],
+  declarations: [AppComponent, CreditCardFormComponent, DynamicFormComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -25,6 +27,7 @@ import {MarkFormTouchedDirective} from './mark-form-touched.directive';
     MatCardModule,
     MatFormFieldModule,
     MarkFormTouchedDirective,
+    AsyncPipe,
   ],
   exports: [
     MatInputModule,
