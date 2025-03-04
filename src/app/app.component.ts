@@ -20,7 +20,11 @@ export class AppComponent {
     console.log('Form values:', $event);
   }
 
-  onLoadValues() {
-    this.formValuesService.loadValues();
+  onLoadCreditCard() {
+    this.formValuesService.loadCreditCard();
+  }
+
+  onLoadDebit() {
+    this.formValuesService.loadDebit();
   }
 }

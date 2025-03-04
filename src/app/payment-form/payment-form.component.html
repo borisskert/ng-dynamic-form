@@ -5,6 +5,7 @@
     <mat-select formControlName="paymentMethod">
       <mat-option value="cash">Cash</mat-option>
       <mat-option value="creditCard">Credit Card</mat-option>
+      <mat-option value="debit">Debit</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -14,4 +15,10 @@
     [creditCard]="creditCard"
     *ngIf="paymentMethod === 'creditCard'">
   </app-credit-card-form>
+
+  <app-debit-form
+    [form]="debitForm"
+    [debitInfo]="debit"
+    *ngIf="paymentMethod === 'debit'">
+  </app-debit-form>
 </div>

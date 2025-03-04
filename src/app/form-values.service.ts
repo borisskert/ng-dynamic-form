@@ -15,7 +15,7 @@ export class FormValuesService {
     return this._formValues$.asObservable();
   }
 
-  public loadValues() {
+  public loadCreditCard() {
     this._formValues$.next({
       name: 'John Doe',
       payment: {
@@ -27,6 +27,19 @@ export class FormValuesService {
         }
       }
     });
-    console.log('Values loaded');
+  }
+
+  public loadDebit() {
+    this._formValues$.next({
+      name: 'John Doe',
+      payment: {
+        paymentMethod: 'debit',
+        debit: {
+          accountHolder: 'John Doe',
+          iban: 'DE12345678901234567890',
+          bic: 'GENODEF1M04'
+        }
+      }
+    });
   }
 }

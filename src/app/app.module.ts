@@ -15,6 +15,7 @@ import {MarkFormTouchedDirective} from './mark-form-touched.directive';
 import {DynamicFormComponent} from './dyncamic-form/dynamic-form.component';
 import {AsyncPipe} from '@angular/common';
 import {PaymentFormComponent} from './payment-form/payment-form.component';
+import {DebitFormComponent} from './debit-form/debit-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {PaymentFormComponent} from './payment-form/payment-form.component';
     CreditCardFormComponent,
     PaymentFormComponent,
     DynamicFormComponent,
+    DebitFormComponent,
   ],
   imports: [
     BrowserModule,

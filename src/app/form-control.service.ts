@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormCreditCard, FormPayment, FormValue} from './form-value';
+import {FormCreditCard, FormDebit, FormPayment, FormValue} from './form-value';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class FormControlService {
   }
 
   buildFormGroup(values: FormValue | null): FormGroup {
-    console.log('values', values);
     const group: any = {};
 
     group['name'] = this.fb.control(values?.name, [Validators.required]);
@@ -27,6 +26,8 @@ export class FormControlService {
 
     if (values?.paymentMethod === 'creditCard') {
       group['creditCard'] = this.buildCreditCardFormGroup(values?.creditCard ?? null);
+    } else if (values?.paymentMethod === 'debit') {
+      group['debit'] = this.buildDebitFormGroup(values?.debit ?? null);
     }
 
     return this.fb.group(group);
@@ -38,6 +39,16 @@ export class FormControlService {
     group['cardNumber'] = this.fb.control(values?.cardNumber, [Validators.required, Validators.pattern(/^\d{16}$/)]);
     group['expiryDate'] = this.fb.control(values?.expiryDate, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]);
     group['cvv'] = this.fb.control(values?.cvv, [Validators.required, Validators.pattern(/^\d{3}$/)]);
+
+    return this.fb.group(group);
+  }
+
+  buildDebitFormGroup(values: FormDebit | null): FormGroup {
+    const group: any = {};
+
+    group['accountHolder'] = this.fb.control(values?.accountHolder, [Validators.required]);
+    group['iban'] = this.fb.control(values?.iban, [Validators.required, Validators.pattern(/^[A-Z]{2}\d{2} ?\d{4} ?\d{4} ?\d{4} ?\d{4} ?\d{2}$/)]);
+    group['bic'] = this.fb.control(values?.bic, [Validators.pattern(/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/)]);
 
     return this.fb.group(group);
   }

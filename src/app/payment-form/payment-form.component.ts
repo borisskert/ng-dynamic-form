@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormCreditCard, FormPayment} from '../form-value';
+import {FormCreditCard, FormDebit, FormPayment} from '../form-value';
 import {FormControlService} from '../form-control.service';
 
 @Component({
@@ -38,5 +38,20 @@ export class PaymentFormComponent {
 
   get creditCard(): FormCreditCard {
     return this.form.get('creditCard')?.value;
+  }
+
+  get debitForm(): FormGroup {
+    const debitFormGroup = this.form.get('debit') as FormGroup;
+
+    if (debitFormGroup) {
+      return debitFormGroup;
+    }
+
+    this.form.addControl('debit', this.fb.buildDebitFormGroup(null));
+    return this.form.get('debit') as FormGroup;
+  }
+
+  get debit(): FormDebit {
+    return this.form.get('debit')?.value;
   }
 }
