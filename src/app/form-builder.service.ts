@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class FormControlService {
+export class FormBuilderService {
 
   constructor(private fb: FormBuilder) {
   }

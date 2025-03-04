@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormControlService} from '../form-control.service';
+import {FormBuilderService} from '../form-builder.service';
 
 @Component({
   selector: 'app-payment-form',
@@ -26,7 +26,7 @@ export class PaymentFormComponent {
 
   form!: FormGroup;
 
-  constructor(private fb: FormControlService) {
+  constructor(private fb: FormBuilderService) {
   }
 
   get paymentMethod(): string {
@@ -35,11 +35,11 @@ export class PaymentFormComponent {
 
   private initForm() {
     if (this._parentForm && this._childFormControlName) {
-      this.form = this.ensurePaymentForm();
+      this.form = this.ensureChildForm();
     }
   }
 
-  private ensurePaymentForm(): FormGroup {
+  private ensureChildForm(): FormGroup {
     return this.fb.ensureFormGroup(
       this._parentForm,
       this._childFormControlName,

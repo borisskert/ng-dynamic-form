@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormControlService} from '../form-control.service';
+import {FormBuilderService} from '../form-builder.service';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -26,16 +26,16 @@ export class CreditCardFormComponent {
 
   form!: FormGroup;
 
-  constructor(private fb: FormControlService) {
+  constructor(private fb: FormBuilderService) {
   }
 
   private initForm() {
     if (this._parentForm && this._childFormControlName) {
-      this.form = this.ensureCreditCardForm();
+      this.form = this.ensureChildForm();
     }
   }
 
-  private ensureCreditCardForm() {
+  private ensureChildForm() {
     return this.fb.ensureFormGroup(
       this._parentForm,
       this._childFormControlName,
