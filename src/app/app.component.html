@@ -5,6 +5,6 @@
   <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()">Load Debit</button>
 </mat-card>
 
-<div>
-  {{ formValues$ | async | json }}
+<div *ngIf="submittedValue">
+  Submitted: {{ submittedValue | json }}
 </div>

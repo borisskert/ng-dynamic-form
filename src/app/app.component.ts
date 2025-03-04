@@ -12,12 +12,14 @@ import {FormValuesService} from './form-values.service';
 export class AppComponent {
   public formValues$: Observable<FormValue>;
 
+  submittedValue: FormValue | undefined;
+
   constructor(private formValuesService: FormValuesService) {
     this.formValues$ = this.formValuesService.formValues$;
   }
 
   onSubmitForm($event: FormValue) {
-    console.log('Form values:', $event);
+    this.submittedValue = $event;
   }
 
   onLoadCreditCard() {
