@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-  <!-- Payment Method Selection -->
+
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Payment Method</mat-label>
     <mat-select formControlName="paymentMethod">
@@ -9,14 +9,15 @@
     </mat-select>
   </mat-form-field>
 
-  <!-- Credit Card Component (Only Show When Credit Card is Selected) -->
   <app-credit-card-form
-    [form]="creditCardForm"
+    [parentForm]="form"
+    childFormControlName="creditCard"
     *ngIf="paymentMethod === 'creditCard'">
   </app-credit-card-form>
 
   <app-debit-form
-    [form]="debitForm"
+    [parentForm]="form"
+    childFormControlName="debit"
     *ngIf="paymentMethod === 'debit'">
   </app-debit-form>
 </div>

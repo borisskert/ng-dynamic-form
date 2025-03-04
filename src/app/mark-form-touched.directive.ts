@@ -1,4 +1,4 @@
-import {Directive, Self, HostListener} from '@angular/core';
+import {Directive, HostListener, Self} from '@angular/core';
 import {AbstractControl, ControlContainer, FormGroup} from '@angular/forms';
 
 @Directive({

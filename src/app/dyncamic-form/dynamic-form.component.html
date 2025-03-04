@@ -9,7 +9,7 @@
     </mat-error>
   </mat-form-field>
 
-  <app-payment-form [form]="paymentForm"></app-payment-form>
+  <app-payment-form [parentForm]="form" childFormControlName="payment"></app-payment-form>
 
   <!-- Submit Button -->
   <button mat-raised-button color="primary" type="submit">Submit</button>

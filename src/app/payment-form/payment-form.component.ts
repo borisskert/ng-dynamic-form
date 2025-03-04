@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormCreditCard, FormDebit} from '../form-value';
 import {FormControlService} from '../form-control.service';
 
 @Component({
@@ -10,7 +9,22 @@ import {FormControlService} from '../form-control.service';
   standalone: false,
 })
 export class PaymentFormComponent {
-  @Input() form!: FormGroup;
+  private _childFormControlName!: string;
+  @Input() set childFormControlName(value: string) {
+    // We need to make sure that the form is created as early as possible, so we need to implement
+    // the setters for the childFormControl and parentForm properties. Otherwise, the form will not accept
+    // loaded values from the parent form.
+    this._childFormControlName = value;
+    this.initForm()
+  }
+
+  private _parentForm!: FormGroup;
+  @Input() set parentForm(value: FormGroup) {
+    this._parentForm = value;
+    this.initForm()
+  }
+
+  form!: FormGroup;
 
   constructor(private fb: FormControlService) {
   }
@@ -19,33 +33,17 @@ export class PaymentFormComponent {
     return this.form.get('paymentMethod')?.value;
   }
 
-  get creditCardForm(): FormGroup {
-    const creditCardFormGroup = this.form.get('creditCard') as FormGroup;
-
-    if (creditCardFormGroup) {
-      return creditCardFormGroup;
+  private initForm() {
+    if (this._parentForm && this._childFormControlName) {
+      this.form = this.ensurePaymentForm();
     }
-
-    this.form.addControl('creditCard', this.fb.buildCreditCardFormGroup(null));
-    return this.form.get('creditCard') as FormGroup;
   }
 
-  get creditCard(): FormCreditCard {
-    return this.form.get('creditCard')?.value;
-  }
-
-  get debitForm(): FormGroup {
-    const debitFormGroup = this.form.get('debit') as FormGroup;
-
-    if (debitFormGroup) {
-      return debitFormGroup;
-    }
-
-    this.form.addControl('debit', this.fb.buildDebitFormGroup(null));
-    return this.form.get('debit') as FormGroup;
-  }
-
-  get debit(): FormDebit {
-    return this.form.get('debit')?.value;
+  private ensurePaymentForm(): FormGroup {
+    return this.fb.ensureFormGroup(
+      this._parentForm,
+      this._childFormControlName,
+      () => this.fb.buildPaymentFormGroup()
+    )
   }
 }

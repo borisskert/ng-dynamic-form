@@ -11,8 +11,9 @@ import {FormControlService} from '../form-control.service';
 })
 export class DynamicFormComponent implements OnInit {
   @Input() set formValues(formValues: FormValue | null) {
-    if (this.form) {
+    if (formValues && this.form) {
       this.form = this.fb.buildFormGroup(formValues);
+      this.form.patchValue(formValues);
     }
   }
 
@@ -31,20 +32,5 @@ export class DynamicFormComponent implements OnInit {
     if (this.form.valid) {
       this.submitForm.emit(this.form.value);
     }
-  }
-
-  get paymentForm(): FormGroup {
-    const group = this.form.get('payment') as FormGroup;
-
-    if (group) {
-      return group;
-    }
-
-    this.form.addControl('payment', this.fb.buildPaymentFormGroup(null));
-    return this.form.get('payment') as FormGroup;
-  }
-
-  get payment(): FormPayment {
-    return this.form.get('payment')?.value;
   }
 }
