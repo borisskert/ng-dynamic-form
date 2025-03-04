@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CreditCardFormValues, FormValues} from '../form-values';
+import {FormCreditCard, FormPayment, FormValue} from '../form-value';
 import {FormGroup} from '@angular/forms';
 import {FormControlService} from '../form-control.service';
 
@@ -10,13 +10,13 @@ import {FormControlService} from '../form-control.service';
   standalone: false,
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() set formValues(formValues: FormValues | null) {
+  @Input() set formValues(formValues: FormValue | null) {
     if (this.form) {
       this.form = this.fb.buildFormGroup(formValues);
     }
   }
 
-  @Output() submitForm: EventEmitter<FormValues> = new EventEmitter<FormValues>();
+  @Output() submitForm: EventEmitter<FormValue> = new EventEmitter<FormValue>();
 
   form!: FormGroup;
 
@@ -33,22 +33,18 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
-  get paymentMethod(): string {
-    return this.form.get('paymentMethod')?.value;
-  }
+  get paymentForm(): FormGroup {
+    const group = this.form.get('payment') as FormGroup;
 
-  get creditCardForm(): FormGroup {
-    const creditCardFormGroup = this.form.get('creditCard') as FormGroup;
-
-    if (creditCardFormGroup) {
-      return creditCardFormGroup;
+    if (group) {
+      return group;
     }
 
-    this.form.addControl('creditCard', this.fb.buildCreditCardToFormGroup(null));
-    return this.form.get('creditCard') as FormGroup;
+    this.form.addControl('payment', this.fb.buildPaymentFormGroup(null));
+    return this.form.get('payment') as FormGroup;
   }
 
-  get creditCard(): CreditCardFormValues {
-    return this.form.get('creditCard')?.value;
+  get payment(): FormPayment {
+    return this.form.get('payment')?.value;
   }
 }

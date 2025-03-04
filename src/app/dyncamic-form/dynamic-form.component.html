@@ -3,27 +3,16 @@
   <!-- Name Field -->
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Name</mat-label>
-    <input matInput type="text" formControlName="name" />
+    <input matInput type="text" formControlName="name"/>
     <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
       Name is required.
     </mat-error>
   </mat-form-field>
 
-  <!-- Payment Method Selection -->
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Payment Method</mat-label>
-    <mat-select formControlName="paymentMethod">
-      <mat-option value="cash">Cash</mat-option>
-      <mat-option value="creditCard">Credit Card</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- Credit Card Component (Only Show When Credit Card is Selected) -->
-  <app-credit-card-form
-    [form]="creditCardForm"
-    [creditCard]="creditCard"
-    *ngIf="paymentMethod === 'creditCard'">
-  </app-credit-card-form>
+  <app-payment-form
+    [form]="paymentForm"
+    [payment]="payment">
+  </app-payment-form>
 
   <!-- Submit Button -->
   <button mat-raised-button color="primary" type="submit">Submit</button>

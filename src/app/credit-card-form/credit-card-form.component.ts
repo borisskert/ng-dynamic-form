@@ -10,7 +10,7 @@ import {
   Validator,
   Validators
 } from '@angular/forms';
-import {CreditCardFormValues} from '../form-values';
+import {FormCreditCard} from '../form-value';
 import {Subject, takeUntil} from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ import {Subject, takeUntil} from 'rxjs';
   standalone: false,
 })
 export class CreditCardFormComponent {
-  @Input() set creditCard(creditCard: CreditCardFormValues | null) {
+  @Input() set creditCard(creditCard: FormCreditCard | null) {
     if (creditCard && this.form) {
       this.form.patchValue(creditCard);
     }

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormValues} from './form-values';
+import {FormValue} from './form-value';
 import {Observable} from 'rxjs';
 import {FormValuesService} from './form-values.service';
 
@@ -10,13 +10,13 @@ import {FormValuesService} from './form-values.service';
   standalone: false,
 })
 export class AppComponent {
-  public formValues$: Observable<FormValues>;
+  public formValues$: Observable<FormValue>;
 
   constructor(private formValuesService: FormValuesService) {
     this.formValues$ = this.formValuesService.formValues$;
   }
 
-  onSubmitForm($event: FormValues) {
+  onSubmitForm($event: FormValue) {
     console.log('Form values:', $event);
   }
 
