@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormCreditCard, FormDebit, FormPayment} from '../form-value';
+import {FormCreditCard, FormDebit} from '../form-value';
 import {FormControlService} from '../form-control.service';
 
 @Component({
@@ -10,12 +10,6 @@ import {FormControlService} from '../form-control.service';
   standalone: false,
 })
 export class PaymentFormComponent {
-  @Input() set payment(payment: FormPayment | null) {
-    if (payment && this.form) {
-      this.form.patchValue(payment);
-    }
-  }
-
   @Input() form!: FormGroup;
 
   constructor(private fb: FormControlService) {

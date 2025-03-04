@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormCreditCard, FormPayment, FormValue} from '../form-value';
+import {FormPayment, FormValue} from '../form-value';
 import {FormGroup} from '@angular/forms';
 import {FormControlService} from '../form-control.service';
 

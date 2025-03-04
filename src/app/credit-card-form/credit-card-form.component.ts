@@ -1,17 +1,5 @@
-import {Component, forwardRef, Input, OnDestroy} from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  FormGroup,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator,
-  Validators
-} from '@angular/forms';
-import {FormCreditCard} from '../form-value';
-import {Subject, takeUntil} from 'rxjs';
+import {Component, Input} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -20,11 +8,5 @@ import {Subject, takeUntil} from 'rxjs';
   standalone: false,
 })
 export class CreditCardFormComponent {
-  @Input() set creditCard(creditCard: FormCreditCard | null) {
-    if (creditCard && this.form) {
-      this.form.patchValue(creditCard);
-    }
-  }
-
   @Input() form!: FormGroup;
 }
