@@ -10,14 +10,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import {CreditCardFormComponent} from './credit-card-form/credit-card-form.component';
-import {MarkFormTouchedDirective} from './mark-form-touched.directive';
-import {DynamicFormComponent} from './dyncamic-form/dynamic-form.component';
 import {AsyncPipe} from '@angular/common';
-import {PaymentFormComponent} from './payment-form/payment-form.component';
-import {DebitFormComponent} from './debit-form/debit-form.component';
-import {PaymentsFormComponent} from './payments-form/payments-form.component';
 import {MatIconModule} from '@angular/material/icon';
+import {MarkFormTouchedDirective} from './directives/mark-form-touched.directive';
+import {PaymentFormComponent} from './components/payment-form/payment-form.component';
+import {CreditCardFormComponent} from './components/credit-card-form/credit-card-form.component';
+import {DynamicFormComponent} from './components/dyncamic-form/dynamic-form.component';
+import {DebitFormComponent} from './components/debit-form/debit-form.component';
+import {PaymentsFormComponent} from './components/payments-form/payments-form.component';
 
 @NgModule({
   declarations: [

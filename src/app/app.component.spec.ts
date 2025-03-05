@@ -1,6 +1,5 @@
 import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {DebitFormComponent} from './debit-form/debit-form.component';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 
