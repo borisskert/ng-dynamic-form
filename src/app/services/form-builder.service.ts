@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FormCreditCard, FormDebit, FormPayment, FormValue} from '../form-value';
+import {FormCreditCard, FormDebit, FormPayment, FormValue} from '../models/form-value';
 
 @Injectable({
   providedIn: 'root'

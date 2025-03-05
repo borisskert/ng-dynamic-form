@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormValue} from '../form-value';
 import {FormGroup} from '@angular/forms';
 import {FormBuilderService} from '../services/form-builder.service';
+import {fromFormValue, PaymentDetails} from '../models/payment-details';
+import {FormValue} from '../models/form-value';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -17,7 +18,7 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
-  @Output() submitForm: EventEmitter<FormValue> = new EventEmitter<FormValue>();
+  @Output() submitForm: EventEmitter<PaymentDetails> = new EventEmitter<PaymentDetails>();
 
   form!: FormGroup;
 
@@ -30,7 +31,7 @@ export class DynamicFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.submitForm.emit(this.form.value);
+      this.submitForm.emit(fromFormValue(this.form.value));
     }
   }
 

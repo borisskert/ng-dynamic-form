@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {defaultFormValues, FormValue} from '../form-value';
+import {defaultFormValues, FormValue} from '../models/form-value';
 
 @Injectable({
   providedIn: 'root'
