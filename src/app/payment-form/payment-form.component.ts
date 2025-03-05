@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormBuilderService} from '../form-builder.service';
+import {FormBuilderService} from '../services/form-builder.service';
 
 @Component({
   selector: 'app-payment-form',

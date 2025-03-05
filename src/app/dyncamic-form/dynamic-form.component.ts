@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormValue} from '../form-value';
 import {FormGroup} from '@angular/forms';
-import {FormBuilderService} from '../form-builder.service';
+import {FormBuilderService} from '../services/form-builder.service';
 
 @Component({
   selector: 'app-dynamic-form',

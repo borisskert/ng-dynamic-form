@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormValue} from './form-value';
 import {Observable} from 'rxjs';
-import {FormValuesService} from './form-values.service';
+import {FormValuesService} from './services/form-values.service';
 
 @Component({
   selector: 'app-root',
