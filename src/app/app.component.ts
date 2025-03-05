@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
-import {FormValuesService} from './services/form-values.service';
-import {FormValue} from './models/form-value';
-import {fromFormValue, PaymentDetails} from './models/payment-details';
+import {PaymentDetailsService} from './services/payment-details.service';
+import {PaymentDetails} from './models/payment-details';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +10,12 @@ import {fromFormValue, PaymentDetails} from './models/payment-details';
   standalone: false,
 })
 export class AppComponent {
-  public formValues$: Observable<FormValue>;
+  paymentDetails$: Observable<PaymentDetails>;
 
   submittedValue: PaymentDetails | undefined;
 
-  constructor(private formValuesService: FormValuesService) {
-    this.formValues$ = this.formValuesService.formValues$;
+  constructor(private paymentDetailsService: PaymentDetailsService) {
+    this.paymentDetails$ = this.paymentDetailsService.paymentDetails$;
   }
 
   onSubmitForm($event: PaymentDetails) {
@@ -24,10 +23,18 @@ export class AppComponent {
   }
 
   onLoadCreditCard() {
-    this.formValuesService.loadCreditCard();
+    this.paymentDetailsService.loadCreditCard();
   }
 
   onLoadDebit() {
-    this.formValuesService.loadDebit();
+    this.paymentDetailsService.loadDebit();
+  }
+
+  onLoadCreditCardAndDebit() {
+    this.paymentDetailsService.loadCreditCardAndDebit();
+  }
+
+  onClear() {
+    this.paymentDetailsService.clear();
   }
 }

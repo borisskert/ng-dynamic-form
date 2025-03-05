@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 import {FormBuilderService} from '../services/form-builder.service';
 
 @Component({
@@ -14,12 +14,7 @@ export class PaymentsFormComponent {
   constructor(private fb: FormBuilderService) {
   }
 
-  get paymentsForm(): AbstractControl {
-    return this.form;
-  }
-
   get formGroups(): FormArray {
-    // return this.form.get('payments') as FormArray;
     return this.form as FormArray;
   }
 

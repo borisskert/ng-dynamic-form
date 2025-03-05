@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {FormBuilderService} from '../services/form-builder.service';
 import {fromFormValue, PaymentDetails} from '../models/payment-details';
-import {FormValue} from '../models/form-value';
+import {FormValue, fromPaymentDetails} from '../models/form-value';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -11,10 +11,14 @@ import {FormValue} from '../models/form-value';
   standalone: false,
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() set formValues(formValues: FormValue | null) { // TODO PaymentDetails
-    if (formValues && this.form) {
-      this.form = this.fb.buildFormGroup(formValues);
-      this.form.patchValue(formValues);
+  private _formValue: FormValue | null = null;
+
+  @Input() set paymentDetails(value: PaymentDetails | null) {
+    this._formValue = value ? fromPaymentDetails(value) : null;
+
+    if (this._formValue && this.form) {
+      this.form = this.fb.buildFormGroup(this._formValue);
+      this.form.patchValue(this._formValue);
     }
   }
 
@@ -26,7 +30,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.fb.buildFormGroup(this.formValues!)
+    this.form = this.fb.buildFormGroup(this._formValue)
   }
 
   onSubmit() {

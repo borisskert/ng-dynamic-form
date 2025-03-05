@@ -1,14 +1,24 @@
 <mat-card class="container">
-  <h1>App Component</h1>
-  <mat-card>
-    <app-dynamic-form [formValues]="formValues$ | async" (submitForm)="onSubmitForm($event)"></app-dynamic-form>
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCard()">Load Credit Card</button>
-    <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()">Load Debit</button>
-  </mat-card>
-</mat-card>
+  <div>
+    <h1>App Component</h1>
+  </div>
+  <div class="sub-container">
+    <mat-card class="sub-container-item">
+      <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCard()">Load Credit Card</button>
+      <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()">Load Debit</button>
+      <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCardAndDebit()">Load CreditCard &
+        Debit
+      </button>
+      <button mat-raised-button color="primary" type="button" (click)="onClear()">Clear</button>
 
-<div *ngIf="submittedValue">
-  Submitted: {{ submittedValue | json }}
-</div>
+      <mat-card *ngIf="submittedValue">
+        <div [innerHTML]="submittedValue | json"></div>
+      </mat-card>
+
+    </mat-card>
+    <mat-card class="sub-container-item">
+      <app-dynamic-form [paymentDetails]="paymentDetails$ | async"
+                        (submitForm)="onSubmitForm($event)"></app-dynamic-form>
+    </mat-card>
+  </div>
+</mat-card>

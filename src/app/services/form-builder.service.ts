@@ -33,7 +33,6 @@ export class FormBuilderService {
   }
 
   buildPaymentFormGroup(values: FormPayment | null | undefined = undefined): FormGroup {
-    console.log('buildPaymentFormGroup', values);
     const group: any = {};
 
     group['paymentMethod'] = this.fb.control(values?.paymentMethod, [Validators.required]);

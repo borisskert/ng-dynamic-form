@@ -1,5 +1,5 @@
 .container {
-  max-width: 500px;
+  /*max-width: 500px;*/
   margin: auto;
   padding: 20px;
 }
@@ -12,4 +12,15 @@
 mat-card {
   padding: 20px;
   margin-top: 20px;
+}
+
+.sub-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sub-container-item {
+  width: 48%;
 }

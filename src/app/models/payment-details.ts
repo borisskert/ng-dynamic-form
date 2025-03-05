@@ -25,3 +25,13 @@ export function fromFormValue(value: FormValue): PaymentDetails {
     }))
   };
 }
+
+export function defaultPaymentDetails(): PaymentDetails {
+  return {
+    name: '',
+    payments: [{
+      paymentMethod: 'cash',
+      paymentDetails: null
+    }]
+  };
+}

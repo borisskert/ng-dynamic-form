@@ -1,3 +1,5 @@
+import {PaymentDetails} from './payment-details';
+
 export interface FormValue {
   name: string;
   payments: FormPayment[];
@@ -21,11 +23,25 @@ export interface FormDebit {
   bic: string;
 }
 
-export function defaultFormValues(): FormValue {
+export function fromPaymentDetails(value: PaymentDetails): FormValue {
   return {
-    name: '',
-    payments: [{
-      paymentMethod: 'cash',
-    }]
+    name: value.name,
+    payments: value.payments.map((payment) => {
+      if (payment.paymentMethod === 'creditCard') {
+        return {
+          paymentMethod: payment.paymentMethod,
+          creditCard: payment.paymentDetails as FormCreditCard
+        };
+      } else if (payment.paymentMethod === 'debit') {
+        return {
+          paymentMethod: payment.paymentMethod,
+          debit: payment.paymentDetails as FormDebit
+        };
+      } else {
+        return {
+          paymentMethod: payment.paymentMethod
+        };
+      }
+    })
   };
 }
