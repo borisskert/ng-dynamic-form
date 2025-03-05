@@ -1,6 +1,6 @@
 export interface FormValue {
   name: string;
-  payment: FormPayment;
+  payments: FormPayment[];
 }
 
 export interface FormPayment {
@@ -24,8 +24,8 @@ export interface FormDebit {
 export function defaultFormValues(): FormValue {
   return {
     name: '',
-    payment: {
+    payments: [{
       paymentMethod: 'cash',
-    }
+    }]
   };
 }

@@ -16,6 +16,8 @@ import {DynamicFormComponent} from './dyncamic-form/dynamic-form.component';
 import {AsyncPipe} from '@angular/common';
 import {PaymentFormComponent} from './payment-form/payment-form.component';
 import {DebitFormComponent} from './debit-form/debit-form.component';
+import {PaymentsFormComponent} from './payments-form/payments-form.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import {DebitFormComponent} from './debit-form/debit-form.component';
     PaymentFormComponent,
     DynamicFormComponent,
     DebitFormComponent,
+    PaymentsFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import {DebitFormComponent} from './debit-form/debit-form.component';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MarkFormTouchedDirective,
     AsyncPipe,
   ],

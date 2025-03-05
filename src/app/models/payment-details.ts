@@ -2,7 +2,7 @@ import {FormValue} from './form-value';
 
 export interface PaymentDetails {
   name: string;
-  payment: {
+  payments: {
     paymentMethod: string;
     paymentDetails: {
       cardNumber: string;
@@ -13,15 +13,15 @@ export interface PaymentDetails {
       iban: string;
       bic: string;
     } | null;
-  };
+  }[];
 }
 
 export function fromFormValue(value: FormValue): PaymentDetails {
   return {
     name: value.name,
-    payment: {
-      paymentMethod: value.payment.paymentMethod,
-      paymentDetails: value.payment.creditCard ?? value.payment.debit ?? null
-    }
+    payments: value.payments.map((payment) => ({
+      paymentMethod: payment.paymentMethod,
+      paymentDetails: payment.creditCard ?? payment.debit ?? null
+    }))
   };
 }

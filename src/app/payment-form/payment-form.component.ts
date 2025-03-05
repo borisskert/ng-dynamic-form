@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 import {FormBuilderService} from '../services/form-builder.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class PaymentFormComponent {
       this.form,
       'creditCard',
       () => this.fb.buildCreditCardFormGroup()
-    )
+    ) as FormGroup
   }
 
   get debitForm(): FormGroup {
@@ -27,7 +27,7 @@ export class PaymentFormComponent {
       this.form,
       'debit',
       () => this.fb.buildDebitFormGroup()
-    )
+    ) as FormGroup;
   }
 
   get paymentMethod(): string {

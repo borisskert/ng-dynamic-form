@@ -18,28 +18,28 @@ export class FormValuesService {
   public loadCreditCard() {
     this._formValues$.next({
       name: 'John Doe',
-      payment: {
+      payments: [{
         paymentMethod: 'creditCard',
         creditCard: {
           cardNumber: '1234567890123456',
           expiryDate: '12/22',
           cvv: '123'
         }
-      }
+      }]
     });
   }
 
   public loadDebit() {
     this._formValues$.next({
       name: 'John Doe',
-      payment: {
+      payments: [{
         paymentMethod: 'debit',
         debit: {
           accountHolder: 'John Doe',
           iban: 'DE12345678901234567890',
           bic: 'GENODEF1M04'
         }
-      }
+      }]
     });
   }
 }

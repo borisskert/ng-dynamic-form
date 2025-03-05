@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FormCreditCard, FormDebit, FormPayment, FormValue} from '../models/form-value';
 
 @Injectable({
@@ -14,12 +14,26 @@ export class FormBuilderService {
     const group: any = {};
 
     group['name'] = this.fb.control(values?.name, [Validators.required]);
-    group['payment'] = this.buildPaymentFormGroup(values?.payment ?? null);
+    group['payments'] = this.buildPaymentsFormGroup(values?.payments);
 
     return this.fb.group(group);
   }
 
+  buildPaymentsFormGroup(values: FormPayment[] | undefined = undefined): AbstractControl {
+    if (!values) {
+      return this.fb.array([this.buildPaymentFormGroup()]);
+    }
+
+    const paymentForms = values
+      .map((payment) => {
+        return this.buildPaymentFormGroup(payment);
+      }) || [this.buildPaymentFormGroup()];
+
+    return this.fb.array(paymentForms);
+  }
+
   buildPaymentFormGroup(values: FormPayment | null | undefined = undefined): FormGroup {
+    console.log('buildPaymentFormGroup', values);
     const group: any = {};
 
     group['paymentMethod'] = this.fb.control(values?.paymentMethod, [Validators.required]);
@@ -53,7 +67,7 @@ export class FormBuilderService {
     return this.fb.group(group);
   }
 
-  ensureFormGroup(form: FormGroup, formControlName: string, factory: () => FormGroup): FormGroup {
+  ensureFormGroup(form: FormGroup, formControlName: string, factory: () => AbstractControl): AbstractControl {
     if (!form.contains(formControlName)) {
       form.addControl(formControlName, factory());
     }

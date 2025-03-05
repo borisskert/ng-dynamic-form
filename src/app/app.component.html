@@ -1,8 +1,12 @@
 <mat-card class="container">
-  <h2>Payment Form</h2>
-  <app-dynamic-form [formValues]="formValues$ | async" (submitForm)="onSubmitForm($event)"></app-dynamic-form>
-  <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCard()">Load Credit Card</button>
-  <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()">Load Debit</button>
+  <h1>App Component</h1>
+  <mat-card>
+    <app-dynamic-form [formValues]="formValues$ | async" (submitForm)="onSubmitForm($event)"></app-dynamic-form>
+  </mat-card>
+  <mat-card>
+    <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCard()">Load Credit Card</button>
+    <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()">Load Debit</button>
+  </mat-card>
 </mat-card>
 
 <div *ngIf="submittedValue">
