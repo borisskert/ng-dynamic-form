@@ -33,4 +33,12 @@ export class DynamicFormComponent implements OnInit {
       this.submitForm.emit(this.form.value);
     }
   }
+
+  get paymentForm(): FormGroup {
+    return this.fb.ensureFormGroup(
+      this.form,
+      'payment',
+      () => this.fb.buildPaymentFormGroup()
+    )
+  }
 }
