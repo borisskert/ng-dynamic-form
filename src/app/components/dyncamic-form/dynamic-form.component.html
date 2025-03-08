@@ -3,7 +3,7 @@
 
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Name</mat-label>
-    <input matInput type="text" formControlName="name"/>
+    <input matInput type="text" formControlName="name" class="dynamic-form--name">
     <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
       Name is required.
     </mat-error>
@@ -11,5 +11,5 @@
 
   <app-payments-form [form]="paymentsForm"></app-payments-form>
 
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button mat-raised-button color="primary" type="submit" class="dynamic-form--submit">Submit</button>
 </form>
