@@ -3,41 +3,122 @@
 // with Intellisense and code completion in your
 // IDE or Text Editor.
 // ***********************************************
-// declare namespace Cypress {
-//   interface Chainable<Subject = any> {
-//     customCommand(param: any): typeof customCommand;
-//   }
-// }
-//
-// function customCommand(param: any): void {
-//   console.warn(param);
-// }
-//
-// NOTE: You can use it like so:
-// Cypress.Commands.add('customCommand', customCommand);
-//
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+declare namespace Cypress {
+  interface Chainable<Subject = any> {
+    selectCash(): Chainable<Subject>;
+
+    selectCreditCard(param: {
+      cardNumber: string;
+      expiryDate: string;
+      cvv: string;
+    }): Chainable<Subject>;
+
+    selectDebit(param: {
+      accountHolder: string;
+      iban: string;
+      bic: string;
+    }): Chainable<Subject>;
+
+    shouldShowSubmittedCash(param: {
+      name: string;
+    }): Chainable<Subject>;
+
+    shouldShowSubmittedCreditCard(param: {
+      name: string;
+      cardNumber: string;
+      expiryDate: string;
+      cvv: string;
+    }): Chainable<Subject>;
+
+    shouldShowSubmittedDebit(param: {
+      name: string;
+      accountHolder: string;
+      iban: string;
+      bic: string;
+    }): Chainable<Subject>;
+  }
+}
+
+Cypress.Commands.add('selectCash', () => {
+  return cy
+    .then(() => cy
+      .get('.payment-form--payment-method').click()
+      .get('mat-option').contains('Cash').click()
+    )
+})
+
+Cypress.Commands.add('selectCreditCard', (params) => {
+  return cy
+    .then(() => cy
+      .get('.payment-form--payment-method').click()
+      .get('mat-option').contains('Credit Card').click()
+    )
+
+    .then(() => cy
+      .get('.creditcard-form-input--cardnumber')
+      .focus()
+      .type(params.cardNumber)
+    )
+
+    .then(() => cy
+      .get('.creditcard-form-input--expiryDate')
+      .focus()
+      .type(params.expiryDate)
+    )
+
+    .then(() => cy
+      .get('.creditcard-form-input--cvv')
+      .focus()
+      .type(params.cvv)
+    )
+})
+
+Cypress.Commands.add('selectDebit', (params) => {
+  return cy
+    .then(() => cy
+      .get('.payment-form--payment-method').click()
+      .get('mat-option').contains('Debit').click()
+    )
+
+    .then(() => cy
+      .get('.debit-form-input--accountHolder')
+      .focus()
+      .type(params.accountHolder)
+    )
+
+    .then(() => cy
+      .get('.debit-form-input--iban')
+      .focus()
+      .type(params.iban)
+    )
+
+    .then(() => cy
+      .get('.debit-form-input--bic')
+      .focus()
+      .type(params.bic)
+    )
+})
+
+Cypress.Commands.add('shouldShowSubmittedCash', (param) => {
+  return cy.get('div.submitted-value-container')
+    .should(
+      'contain.text',
+      `{\n  "name": "${param.name}",\n  "payments": [\n    {\n      "paymentMethod": "cash",\n      "paymentDetails": null\n    }\n  ]\n}`
+    )
+});
+
+Cypress.Commands.add('shouldShowSubmittedCreditCard', (param) => {
+  return cy.get('div.submitted-value-container')
+    .should(
+      'contain.text',
+      `{\n  "name": "${param.name}",\n  "payments": [\n    {\n      "paymentMethod": "creditCard",\n      "paymentDetails": {\n        "cardNumber": "${param.cardNumber}",\n        "expiryDate": "${param.expiryDate}",\n        "cvv": "${param.cvv}"\n      }\n    }\n  ]\n}`
+    )
+});
+
+Cypress.Commands.add('shouldShowSubmittedDebit', (param) => {
+  return cy.get('div.submitted-value-container')
+    .should(
+      'contain.text',
+      `{\n  "name": "${param.name}",\n  "payments": [\n    {\n      "paymentMethod": "debit",\n      "paymentDetails": {\n        "accountHolder": "${param.accountHolder}",\n        "iban": "${param.iban}",\n        "bic": "${param.bic}"\n      }\n    }\n  ]\n}`
+    )
+});
