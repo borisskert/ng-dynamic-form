@@ -4,7 +4,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Card Number</mat-label>
-      <input matInput type="text" formControlName="cardNumber" maxlength="16"/>
+      <input matInput type="text" formControlName="cardNumber" maxlength="16" class="creditcard-form-input--cardnumber"/>
       <mat-error *ngIf="form.get('cardNumber')?.hasError('required')">
         Card Number is required.
       </mat-error>
@@ -15,7 +15,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Expiry Date (MM/YY)</mat-label>
-      <input matInput type="text" formControlName="expiryDate" placeholder="MM/YY"/>
+      <input matInput type="text" formControlName="expiryDate" placeholder="MM/YY" class="creditcard-form-input--expiryDate"/>
       <mat-error *ngIf="form.get('expiryDate')?.hasError('required')">
         Expiry Date is required.
       </mat-error>
@@ -26,7 +26,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>CVV</mat-label>
-      <input matInput type="text" formControlName="cvv" maxlength="3"/>
+      <input matInput type="text" formControlName="cvv" maxlength="3" class="creditcard-form-input--cvv"/>
       <mat-error *ngIf="form.get('cvv')?.hasError('required')">
         CVV is required.
       </mat-error>

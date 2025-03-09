@@ -12,7 +12,7 @@
       <button mat-raised-button color="primary" type="button" (click)="onClear()">Clear</button>
 
       <mat-card *ngIf="submittedValue">
-        <div [innerHTML]="submittedValue | json"></div>
+        <div [innerHTML]="submittedValue | json" class="submitted-value-container"></div>
       </mat-card>
 
     </mat-card>

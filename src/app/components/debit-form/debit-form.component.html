@@ -4,7 +4,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Account Holder</mat-label>
-      <input matInput type="text" formControlName="accountHolder"/>
+      <input matInput type="text" formControlName="accountHolder" class="debit-form-input--accountHolder"/>
       <mat-error *ngIf="form.get('accountHolder')?.hasError('required')">
         Account Holder is required.
       </mat-error>
@@ -12,7 +12,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>IBAN</mat-label>
-      <input matInput type="text" formControlName="iban"/>
+      <input matInput type="text" formControlName="iban" class="debit-form-input--iban"/>
       <mat-error *ngIf="form.get('iban')?.hasError('required')">
         IBAN is required.
       </mat-error>
@@ -23,7 +23,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>BIC</mat-label>
-      <input matInput type="text" formControlName="bic"/>
+      <input matInput type="text" formControlName="bic" class="debit-form-input--bic"/>
       <mat-error *ngIf="form.get('bic')?.hasError('pattern')">
         Invalid BIC.
       </mat-error>
