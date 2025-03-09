@@ -33,4 +33,18 @@ export class PaymentFormComponent {
   get paymentMethod(): string {
     return this.form.get('paymentMethod')?.value;
   }
+
+  onPaymentMethodChange() {
+    if (this.paymentMethod !== 'creditCard') {
+      this.creditCardForm.disable();
+    } else {
+      this.creditCardForm.enable();
+    }
+
+    if (this.paymentMethod !== 'debit') {
+      this.debitForm.disable();
+    } else {
+      this.debitForm.enable();
+    }
+  }
 }

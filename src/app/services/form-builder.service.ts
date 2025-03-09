@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FormCreditCard, FormDebit, FormPayment, FormValue} from '../models/form-value';
 
 @Injectable({
@@ -36,11 +36,15 @@ export class FormBuilderService {
     const group: any = {};
 
     group['paymentMethod'] = this.fb.control(values?.paymentMethod, [Validators.required]);
+    group['creditCard'] = this.buildCreditCardFormGroup(values?.creditCard ?? null);
+    group['debit'] = this.buildDebitFormGroup(values?.debit ?? null);
 
-    if (values?.paymentMethod === 'creditCard') {
-      group['creditCard'] = this.buildCreditCardFormGroup(values?.creditCard ?? null);
-    } else if (values?.paymentMethod === 'debit') {
-      group['debit'] = this.buildDebitFormGroup(values?.debit ?? null);
+    if (values?.paymentMethod !== 'creditCard') {
+      group['creditCard'].disable()
+    }
+
+    if (values?.paymentMethod !== 'debit') {
+      group['debit'].disable();
     }
 
     return this.fb.group(group);
