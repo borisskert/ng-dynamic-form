@@ -1,9 +1,9 @@
 <h3>Payments Form</h3>
 <ng-container *ngFor="let _ of formGroups.controls; let i = index">
-  <mat-card>
+  <mat-card class="payment-form__container">
     <app-payment-form [form]="formGroupAt(i)"></app-payment-form>
     @if(i > 0) {
-      <button mat-raised-button class="remove-group__button" color="warn" (click)="removeFormGroupAt(i)">
+      <button mat-raised-button class="delete-payment__button" color="warn" (click)="removeFormGroupAt(i)">
         <mat-icon>delete</mat-icon>
       </button>
     }

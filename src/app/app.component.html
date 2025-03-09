@@ -4,12 +4,12 @@
   </div>
   <div class="sub-container">
     <mat-card class="sub-container-item">
-      <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCard()">Load Credit Card</button>
-      <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()">Load Debit</button>
-      <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCardAndDebit()">Load CreditCard &
+      <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCard()" class="button-load-creditcard">Load Credit Card</button>
+      <button mat-raised-button color="primary" type="button" (click)="onLoadDebit()" class="button-load-debit">Load Debit</button>
+      <button mat-raised-button color="primary" type="button" (click)="onLoadCreditCardAndDebit()" class="button-load-creditcard-and-debit">Load CreditCard &
         Debit
       </button>
-      <button mat-raised-button color="primary" type="button" (click)="onClear()">Clear</button>
+      <button mat-raised-button color="primary" type="button" (click)="onClear()" class="button-clear">Clear</button>
 
       <mat-card *ngIf="submittedValue">
         <div [innerHTML]="submittedValue | json" class="submitted-value-container"></div>
