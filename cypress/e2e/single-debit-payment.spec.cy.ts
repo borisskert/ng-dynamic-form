@@ -33,7 +33,7 @@ describe('Single Debit', () => {
     describe('When fill incorrect creditCard and switch back', () => {
       beforeEach(() => cy
         .selectCreditCard({
-          cardNumber: '123456789012345a',
+          cardNumber: '123456789012345a', // invalid card number
           expiryDate: '12/23',
           cvv: '123',
         })
