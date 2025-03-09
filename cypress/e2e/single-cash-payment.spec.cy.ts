@@ -16,7 +16,7 @@ describe('Single Cash Payment', () => {
         )
 
         it('Should show submitted form value', () => {
-            cy.get('div.submitted-value-container')
+            cy.get('.submitted-value-container')
                 .should(
                     'contain.text',
                     '{\n  "name": "John Doe",\n  "payments": [\n    {\n      "paymentMethod": "cash",\n      "paymentDetails": null\n    }\n  ]\n}'
