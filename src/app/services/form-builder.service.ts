@@ -69,12 +69,4 @@ export class FormBuilderService {
 
     return this.fb.group(group);
   }
-
-  ensureFormGroup(form: FormGroup, formControlName: string, factory: () => AbstractControl): AbstractControl {
-    if (!form.contains(formControlName)) {
-      form.addControl(formControlName, factory());
-    }
-
-    return form.get(formControlName) as FormGroup;
-  }
 }

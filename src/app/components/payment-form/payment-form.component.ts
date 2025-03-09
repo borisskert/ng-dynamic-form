@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormBuilderService} from '../../services/form-builder.service';
 
 @Component({
   selector: 'app-payment-form',
@@ -11,23 +10,12 @@ import {FormBuilderService} from '../../services/form-builder.service';
 export class PaymentFormComponent {
   @Input() form!: FormGroup;
 
-  constructor(private fb: FormBuilderService) {
-  }
-
   get creditCardForm(): FormGroup {
-    return this.fb.ensureFormGroup(
-      this.form,
-      'creditCard',
-      () => this.fb.buildCreditCardFormGroup()
-    ) as FormGroup
+    return this.form.get('creditCard') as FormGroup;
   }
 
   get debitForm(): FormGroup {
-    return this.fb.ensureFormGroup(
-      this.form,
-      'debit',
-      () => this.fb.buildDebitFormGroup()
-    ) as FormGroup;
+    return this.form.get('debit') as FormGroup;
   }
 
   get paymentMethod(): string {

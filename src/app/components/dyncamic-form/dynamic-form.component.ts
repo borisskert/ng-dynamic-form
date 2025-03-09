@@ -40,10 +40,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   get paymentsForm(): FormArray {
-    return this.fb.ensureFormGroup(
-      this.form,
-      'payments',
-      () => this.fb.buildPaymentsFormGroup()
-    ) as FormArray;
+    return this.form.get('payments') as FormArray;
   }
 }
