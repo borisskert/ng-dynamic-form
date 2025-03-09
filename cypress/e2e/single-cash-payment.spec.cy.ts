@@ -10,15 +10,37 @@ describe('Single Cash Payment', () => {
   describe('When fill name, select cash and submit', () => {
     beforeEach(() => cy
       .get('.dynamic-form--name').type('John Doe')
-      .selectCash()
-      .then(() => cy
-        .get('.dynamic-form--submit').click()
-      )
+      .switchToCash()
     )
 
-    it('Should show submitted form value', () => {
-      cy.shouldShowSubmittedCash({
-        name: 'John Doe'
+    describe('When submit', () => {
+      beforeEach(() => cy.submitForm());
+
+      it('Should show submitted form value', () => {
+        cy.shouldShowSubmittedCash({
+          name: 'John Doe'
+        })
+      })
+    })
+
+    describe('When fill incorrect creditCard and switch back', () => {
+      beforeEach(() => cy
+        .selectCreditCard({
+          cardNumber: '123456789012345a',
+          expiryDate: '12/23',
+          cvv: '123',
+        })
+        .then(() => cy
+          .switchToCash()
+        ).then(() => cy
+          .submitForm()
+        )
+      )
+
+      it('Should show submitted form value', () => {
+        cy.shouldShowSubmittedCash({
+          name: 'John Doe'
+        })
       })
     })
   });

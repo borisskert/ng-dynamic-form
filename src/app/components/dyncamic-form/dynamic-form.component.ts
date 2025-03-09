@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormArray, FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {FormValue, fromPaymentDetails} from '../../models/form-value';
 import {fromFormValue, PaymentDetails} from '../../models/payment-details';
 import {FormBuilderService} from '../../services/form-builder.service';
@@ -40,10 +40,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   get paymentsForm(): FormArray {
-    return this.fb.ensureFormGroup(
-      this.form,
-      'payments',
-      () => this.fb.buildPaymentsFormGroup()
-    ) as FormArray;
+    return this.form.get('payments') as FormArray;
   }
 }

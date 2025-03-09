@@ -5,7 +5,9 @@
 // ***********************************************
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    selectCash(): Chainable<Subject>;
+    switchToCash(): Chainable<Subject>;
+
+    switchToCreditCard(): Chainable<Subject>;
 
     selectCreditCard(param: {
       cardNumber: string;
@@ -13,11 +15,15 @@ declare namespace Cypress {
       cvv: string;
     }): Chainable<Subject>;
 
+    switchToDebit(): Chainable<Subject>;
+
     selectDebit(param: {
       accountHolder: string;
       iban: string;
       bic: string;
     }): Chainable<Subject>;
+
+    submitForm(): Chainable<Subject>;
 
     shouldShowSubmittedCash(param: {
       name: string;
@@ -39,7 +45,7 @@ declare namespace Cypress {
   }
 }
 
-Cypress.Commands.add('selectCash', () => {
+Cypress.Commands.add('switchToCash', () => {
   return cy
     .then(() => cy
       .get('.payment-form--payment-method').click()
@@ -47,12 +53,17 @@ Cypress.Commands.add('selectCash', () => {
     )
 })
 
-Cypress.Commands.add('selectCreditCard', (params) => {
+Cypress.Commands.add('switchToCreditCard', () => {
   return cy
     .then(() => cy
       .get('.payment-form--payment-method').click()
       .get('mat-option').contains('Credit Card').click()
     )
+})
+
+Cypress.Commands.add('selectCreditCard', (params) => {
+  return cy
+    .switchToCreditCard()
 
     .then(() => cy
       .get('.creditcard-form-input--cardnumber')
@@ -73,12 +84,17 @@ Cypress.Commands.add('selectCreditCard', (params) => {
     )
 })
 
-Cypress.Commands.add('selectDebit', (params) => {
+Cypress.Commands.add('switchToDebit', () => {
   return cy
     .then(() => cy
       .get('.payment-form--payment-method').click()
       .get('mat-option').contains('Debit').click()
     )
+})
+
+Cypress.Commands.add('selectDebit', (params) => {
+  return cy
+    .switchToDebit()
 
     .then(() => cy
       .get('.debit-form-input--accountHolder')
@@ -97,6 +113,11 @@ Cypress.Commands.add('selectDebit', (params) => {
       .focus()
       .type(params.bic)
     )
+})
+
+Cypress.Commands.add('submitForm', () => {
+  return cy
+    .get('.dynamic-form--submit').click()
 })
 
 Cypress.Commands.add('shouldShowSubmittedCash', (param) => {
