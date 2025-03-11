@@ -48,6 +48,8 @@ declare namespace Cypress {
     loadCreditCardPayment(): Chainable<Subject>;
 
     loadDebitPayment(): Chainable<Subject>;
+
+    loadCreditCardAndDebitPayment(): Chainable<Subject>;
   }
 }
 
@@ -171,4 +173,8 @@ Cypress.Commands.add('loadCreditCardPayment', () => {
 
 Cypress.Commands.add('loadDebitPayment', () => {
   cy.get('.button-load-debit').click()
+});
+
+Cypress.Commands.add('loadCreditCardAndDebitPayment', () => {
+  cy.get('.button-load-creditcard-and-debit').click()
 });

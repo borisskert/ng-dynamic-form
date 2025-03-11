@@ -31,7 +31,7 @@ describe('Multiple Payments', () => {
         })
       })
 
-      describe('When delete debit payment details', () => {
+      describe('When delete second payment details', () => {
         beforeEach(() => cy.deletePayment(1))
 
         describe('When submit', () => {
@@ -40,6 +40,33 @@ describe('Multiple Payments', () => {
           it('Should show submitted form value', () => {
             cy.get('div.submitted-value-container').should('contain.text', `{\n  "name": "John Doe",\n  "payments": [\n    {\n      "paymentMethod": "creditCard",\n      "paymentDetails": {\n        "cardNumber": "1234567890123456",\n        "expiryDate": "12/23",\n        "cvv": "123"\n      }\n    }\n  ]\n}`)
           })
+        })
+      })
+    })
+  })
+
+  describe('When load CreditCard and Debit', () => {
+    beforeEach(() => cy
+      .loadCreditCardAndDebitPayment()
+    )
+
+    describe('When submit', () => {
+      beforeEach(() => cy.submitForm());
+
+      it('Should show submitted form value', () => {
+        cy.get('div.submitted-value-container')
+          .should('contain.text', '{\n  "name": "John Doe",\n  "payments": [\n    {\n      "paymentMethod": "creditCard",\n      "paymentDetails": {\n        "cardNumber": "1234567890123456",\n        "expiryDate": "12/22",\n        "cvv": "123"\n      }\n    },\n    {\n      "paymentMethod": "debit",\n      "paymentDetails": {\n        "accountHolder": "John Doe",\n        "iban": "DE12345678901234567890",\n        "bic": "GENODEF1M04"\n      }\n    }\n  ]\n}')
+      })
+    })
+
+    describe('When delete second payment details', () => {
+      beforeEach(() => cy.deletePayment(1))
+
+      describe('When submit', () => {
+        beforeEach(() => cy.submitForm());
+
+        it('Should show submitted form value', () => {
+          cy.get('div.submitted-value-container').should('contain.text', `{\n  "name": "John Doe",\n  "payments": [\n    {\n      "paymentMethod": "creditCard",\n      "paymentDetails": {\n        "cardNumber": "1234567890123456",\n        "expiryDate": "12/22",\n        "cvv": "123"\n      }\n    }\n  ]\n}`)
         })
       })
     })
