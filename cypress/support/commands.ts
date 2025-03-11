@@ -5,7 +5,9 @@
 // ***********************************************
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    selectCash(): Chainable<Subject>;
+    switchToCash(): Chainable<Subject>;
+
+    switchToCreditCard(): Chainable<Subject>;
 
     selectCreditCard(param: {
       cardNumber: string;
@@ -13,11 +15,17 @@ declare namespace Cypress {
       cvv: string;
     }): Chainable<Subject>;
 
+    switchToDebit(index?: number): Chainable<Subject>;
+
     selectDebit(param: {
       accountHolder: string;
       iban: string;
       bic: string;
-    }): Chainable<Subject>;
+    }, index?: number): Chainable<Subject>;
+
+    submitForm(): Chainable<Subject>;
+
+    deletePayment(index: number): Chainable<Subject>;
 
     shouldShowSubmittedCash(param: {
       name: string;
@@ -36,10 +44,16 @@ declare namespace Cypress {
       iban: string;
       bic: string;
     }): Chainable<Subject>;
+
+    loadCreditCardPayment(): Chainable<Subject>;
+
+    loadDebitPayment(): Chainable<Subject>;
+
+    loadCreditCardAndDebitPayment(): Chainable<Subject>;
   }
 }
 
-Cypress.Commands.add('selectCash', () => {
+Cypress.Commands.add('switchToCash', () => {
   return cy
     .then(() => cy
       .get('.payment-form--payment-method').click()
@@ -47,56 +61,86 @@ Cypress.Commands.add('selectCash', () => {
     )
 })
 
-Cypress.Commands.add('selectCreditCard', (params) => {
+Cypress.Commands.add('switchToCreditCard', () => {
   return cy
     .then(() => cy
       .get('.payment-form--payment-method').click()
       .get('mat-option').contains('Credit Card').click()
     )
+})
+
+Cypress.Commands.add('selectCreditCard', (param) => {
+  return cy
+    .switchToCreditCard()
 
     .then(() => cy
       .get('.creditcard-form-input--cardnumber')
       .focus()
-      .type(params.cardNumber)
+      .type(param.cardNumber)
     )
 
     .then(() => cy
       .get('.creditcard-form-input--expiryDate')
       .focus()
-      .type(params.expiryDate)
+      .type(param.expiryDate)
     )
 
     .then(() => cy
       .get('.creditcard-form-input--cvv')
       .focus()
-      .type(params.cvv)
+      .type(param.cvv)
     )
 })
 
-Cypress.Commands.add('selectDebit', (params) => {
+Cypress.Commands.add('switchToDebit', (index: number | undefined = undefined) => {
+  if (index !== undefined) {
+    console.log('index', index)
+    return cy
+      .then(() => cy
+        .get('.payment-form--payment-method').eq(index).click({force: true})
+        .get('mat-option').contains('Debit').click()
+      )
+  }
+
   return cy
     .then(() => cy
       .get('.payment-form--payment-method').click()
       .get('mat-option').contains('Debit').click()
     )
+})
+
+Cypress.Commands.add('selectDebit', (param, index: number | undefined = undefined) => {
+  return cy
+    .switchToDebit(index)
 
     .then(() => cy
       .get('.debit-form-input--accountHolder')
       .focus()
-      .type(params.accountHolder)
+      .type(param.accountHolder)
     )
 
     .then(() => cy
       .get('.debit-form-input--iban')
       .focus()
-      .type(params.iban)
+      .type(param.iban)
     )
 
     .then(() => cy
       .get('.debit-form-input--bic')
       .focus()
-      .type(params.bic)
+      .type(param.bic)
     )
+})
+
+Cypress.Commands.add('submitForm', () => {
+  return cy
+    .get('.dynamic-form--submit').click()
+})
+
+Cypress.Commands.add('deletePayment', (index) => {
+  return cy
+    .get('.payment-form__container').eq(index)
+    .find('.delete-payment__button').click()
 })
 
 Cypress.Commands.add('shouldShowSubmittedCash', (param) => {
@@ -121,4 +165,16 @@ Cypress.Commands.add('shouldShowSubmittedDebit', (param) => {
       'contain.text',
       `{\n  "name": "${param.name}",\n  "payments": [\n    {\n      "paymentMethod": "debit",\n      "paymentDetails": {\n        "accountHolder": "${param.accountHolder}",\n        "iban": "${param.iban}",\n        "bic": "${param.bic}"\n      }\n    }\n  ]\n}`
     )
+});
+
+Cypress.Commands.add('loadCreditCardPayment', () => {
+  cy.get('.button-load-creditcard').click()
+});
+
+Cypress.Commands.add('loadDebitPayment', () => {
+  cy.get('.button-load-debit').click()
+});
+
+Cypress.Commands.add('loadCreditCardAndDebitPayment', () => {
+  cy.get('.button-load-creditcard-and-debit').click()
 });
